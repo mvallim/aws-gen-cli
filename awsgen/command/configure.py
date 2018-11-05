@@ -15,6 +15,7 @@ class Configure(object):
 
     def __init__(self, parser):
         parser.add_argument('--role-arn', metavar='arn:aws:iam::xxxxxxxxxxxx:role/AWSTrustUserRole', required=True, dest='roleArn')
+        parser.add_argument('--cloudformation-role-arn', metavar='arn:aws:iam::xxxxxxxxxxxx:role/AWSCloudFormationPassRole', required=True, dest='cloudformationRoleArn')
         parser.add_argument('--session-name', metavar='foo@account', required=True, dest='sessionName')
         parser.add_argument('--profile', metavar='account', required=True, dest='profileName')
         parser.add_argument('--region-name', metavar='us-east-1', default='us-east-1', required=True, dest='regionName', 
@@ -31,5 +32,5 @@ class Configure(object):
         configurationApplication = ConfigurationApplication()
         request = Request(args.roleArn, args.sessionName, args.profileName)
         credentials = credentialsApplication.getCredentials(request=request)
-        configuration = Configuration(args.sessionName, args.regionName, credentials)
+        configuration = Configuration(args.sessionName, args.cloudformationRoleArn, args.regionName, credentials)
         configurationApplication.save(configuration=configuration)

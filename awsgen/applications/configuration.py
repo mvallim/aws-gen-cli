@@ -66,6 +66,7 @@ class ConfigurationApplication(object):
 
         config.set(profile, 'region', configuration.region)
         config.set(profile, 'output', 'json')
+        config.set(profile, 'role_arn', configuration.cloudformationRoleArn)
 
         with open(filename, 'w') as fp:
             config.write(fp)
