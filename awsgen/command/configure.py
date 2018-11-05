@@ -2,12 +2,12 @@ import os
 import sys
 import logging
 
-from ..models.configuration import Configuration
-from ..models.credentials import Credentials
-from ..models.request import Request
+from awsgen.models.configuration import Configuration
+from awsgen.models.credentials import Credentials
+from awsgen.models.request import Request
 
-from ..applications.configuration import ConfigurationApplication
-from ..applications.credentials import CredentialsApplication
+from awsgen.applications.configuration import ConfigurationApplication
+from awsgen.applications.credentials import CredentialsApplication
 
 class Configure(object):
 

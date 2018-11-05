@@ -3,8 +3,8 @@ import json
 import requests
 from botocore.exceptions import ClientError
 
-from colors import Colors
-from ..models.credentials import Credentials
+from awsgen.applications.colors import Colors
+from awsgen.models.credentials import Credentials
 
 class CredentialsApplication(object):
 
@@ -19,12 +19,12 @@ class CredentialsApplication(object):
                 accessKeyId=response['Credentials']['AccessKeyId']
             )
             return credentials
-        except ClientError as e:
-            print Colors.WARNING
-            print '\t' + 'The request signature we calculated does not match the signature you provided.'
-            print '\t' + 'Check your AWS Secret Access Key and signing method on profile [' + Colors.FAIL + Colors.BOLD + request.profileName + Colors.WARNING + ']'
-            print '\t' + 'Check your Arn role [' + Colors.FAIL + Colors.BOLD + request.roleArn + Colors.WARNING + ']'
-            print Colors.ENDC
+        except ClientError:
+            print(Colors.WARNING)
+            print('\t' + 'The request signature we calculated does not match the signature you provided.')
+            print('\t' + 'Check your AWS Secret Access Key and signing method on profile [' + Colors.FAIL + Colors.BOLD + request.profileName + Colors.WARNING + ']')
+            print('\t' + 'Check your Arn role [' + Colors.FAIL + Colors.BOLD + request.roleArn + Colors.WARNING + ']')
+            print(Colors.ENDC)
             exit(0)
 
 

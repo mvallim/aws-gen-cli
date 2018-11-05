@@ -1,6 +1,6 @@
 import sys
 
-from app import App
+from awsgen.app import App
 
 class CLI(object):
 

@@ -1,7 +1,7 @@
 import argparse
 
-from command.configure import Configure
-from command.link import Link
+from awsgen.command.configure import Configure
+from awsgen.command.link import Link
 
 class App(object):
 

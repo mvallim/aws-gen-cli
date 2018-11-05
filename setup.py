@@ -9,7 +9,7 @@ setupOptions = dict(
         'boto3>=1.9.35',
         'botocore>=1.12.16',
         'requests', 
-        'ConfigParser'
+        'configparser'
     ],
     include_package_data=True,
     scripts=[

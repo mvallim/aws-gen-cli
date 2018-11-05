@@ -1,5 +1,5 @@
 import os
-import ConfigParser
+import configparser
 
 class ConfigurationApplication(object):
 
@@ -34,7 +34,7 @@ class ConfigurationApplication(object):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(filename)
 
         if not config.has_section(configuration.profile):
@@ -56,7 +56,7 @@ class ConfigurationApplication(object):
         if not os.path.exists(dirname):
             os.makedirs(dirname)
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(filename)
 
         profile = 'profile ' + configuration.profile
