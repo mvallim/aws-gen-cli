@@ -1,3 +1,4 @@
+import sys
 import boto3
 import json
 import requests
@@ -25,7 +26,7 @@ class CredentialsApplication(object):
             print('\tCheck your AWS Secret Access Key and signing method on profile [' + request.profileName + ']')
             print('\tCheck your Arn role [' + request.roleArn + ']')
             print('')
-            exit(0)
+            sys.exit(1)
 
 
     def getConsoleLink(self, credentials):

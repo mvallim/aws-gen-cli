@@ -1,3 +1,4 @@
+import sys
 import argparse
 
 from awsgen.command.configure import Configure
@@ -12,6 +13,11 @@ class App(object):
     def run(self, args):
         self.addCommand('configure', Configure)
         self.addCommand('link', Link)
+
+        if len(args) < 1:
+            self.parser.print_usage()
+            sys.exit(1)
+
         options = self.parser.parse_args(args)
         options.func(options)
 
