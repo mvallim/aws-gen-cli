@@ -8,7 +8,7 @@ branches:
 before_script:
 - pip install twine wheel
 script:
-- pip --no-cache-dir install -e .
+- pip --no-cache-dir install .
 - aws-gen -h
 - python setup.py sdist bdist_wheel
 deploy:
@@ -19,9 +19,6 @@ deploy:
   distributions: "sdist bdist_wheel"
   on:
     repo: mvallim/aws-ge-cli
-    python: 
-    - '2.7'
-    - '3.6'
     tags: true
 env:
   global:
