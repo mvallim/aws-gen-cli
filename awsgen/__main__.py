@@ -1,6 +1,6 @@
 import sys
 
-from cli import CLI
+from awsgen.cli import CLI
 
 def main():
     return CLI()

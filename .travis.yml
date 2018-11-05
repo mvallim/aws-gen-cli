@@ -24,6 +24,7 @@ deploy:
   distributions: sdist bdist_wheel
   on:
     repo: mvallim/aws-gen-cli
+    python: '2.7'
     tags: true
 env:
   global:
