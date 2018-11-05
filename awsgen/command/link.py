@@ -2,8 +2,6 @@ import os
 import sys
 import logging
 
-from awsgen.applications.colors import Colors
-
 from awsgen.models.credentials import Credentials
 from awsgen.models.request import Request
 
@@ -22,6 +20,6 @@ class Link(object):
         credentialsApplication = CredentialsApplication()
         request = Request(args.roleArn, args.sessionName, args.profileName)
         credentials = credentialsApplication.getCredentials(request=request)
-        print
-        print('\t' + Colors.BOLD + 'Magic Link: ' + Colors.ENDC + Colors.OKGREEN + credentialsApplication.getConsoleLink(credentials=credentials) + Colors.ENDC)
-        print
+        print('')
+        print('\tMagic Link: ' + credentialsApplication.getConsoleLink(credentials=credentials))
+        print('')

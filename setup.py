@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
  
 setupOptions = dict(
     name='awsgen',
-    version='0.0.3',
+    version='0.0.4',
     install_requires=[
         'boto3>=1.9.35',
         'botocore>=1.12.16',
