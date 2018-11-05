@@ -22,6 +22,6 @@ class Link(object):
         credentialsApplication = CredentialsApplication()
         request = Request(args.roleArn, args.sessionName, args.profileName)
         credentials = credentialsApplication.getCredentials(request=request)
-        print()
+        print
         print('\t' + Colors.BOLD + 'Magic Link: ' + Colors.ENDC + Colors.OKGREEN + credentialsApplication.getConsoleLink(credentials=credentials) + Colors.ENDC)
-        print()
+        print
