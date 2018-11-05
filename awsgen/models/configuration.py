@@ -5,7 +5,7 @@ class Configuration(object):
         return self.__profile
 
     @property
-    def cloudFormationRoleArn(self):
+    def cloudformationRoleArn(self):
         return self.__cloudformationRoleArn
 
     @property
@@ -32,8 +32,8 @@ class Configuration(object):
     def credentials(self, value):
         self.__credentials = value
 
-    def __init__(self, profile = None, cloudformatiionRoleArn = None, region = None, credentials = None):
+    def __init__(self, profile = None, cloudformationRoleArn = None, region = None, credentials = None):
         self.__profile = profile
-        self.__cloudformationRoleArn = cloudformatiionRoleArn
+        self.__cloudformationRoleArn = cloudformationRoleArn
         self.__region = region
         self.__credentials = credentials
