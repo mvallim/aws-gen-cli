@@ -5,6 +5,7 @@ python:
 branches:
   only:
   - master
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 before_deploy:
 - git config --global user.email ${EMAIL}
 - git config --global user.name ${USER}
