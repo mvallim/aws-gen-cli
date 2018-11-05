@@ -18,7 +18,7 @@ deploy:
   skip_cleanup: true
   distributions: "sdist bdist_wheel"
   on:
-    repo: mvallim/aws-ge-cli
+    repo: mvallim/aws-gen-cli
     tags: true
 env:
   global:
