@@ -1,21 +1,29 @@
 language: python
-
 python:
-  - "2.7"
-  - "3.6"
-
-git:
-  quiet: true
-
+- '2.7'
+- '3.6'
 branches:
   only:
   - master
-
 before_script:
-  - pip install twine wheel
-
+- pip install twine wheel
 script:
-  - pip --no-cache-dir install -e .
-  - aws-gen -h
-  - python setup.py sdist bdist_wheel
-
+- pip --no-cache-dir install -e .
+- aws-gen -h
+- python setup.py sdist bdist_wheel
+deploy:
+  provider: pypi
+  user: "$USERNAME"
+  password: "$PASSWORD"
+  skip_cleanup: true
+  distributions: "sdist bdist_wheel"
+  on:
+    repo: mvallim/aws-ge-cli
+    python: 
+    - '2.7'
+    - '3.6'
+    tags: true
+env:
+  global:
+  - secure: M3F0GJqh4QDlf6NoHoGe/dRn8qyklaKnYMDWWj2LbD6N1dv8BiLnoPgDdLw+2qd7UEIK4FdEhuvXaiJrVyiJMHtasgZVEn+m3Sma9Qndu0XIiolsHxiUy8j6GF0OY8PJl/ZuhltCvVLpiviPbncEJIQ6uZHfeWUXnx5F6P91WO36DMVyH3buRiOc6wt1pZTNyUsVi03yADjxh+d8NX8qTk33DUqI+lUbbwqia7MrrpP8IBko5WhMaAY75IbgAaWTUqZGFeJRVvNiPQ9Nz2Ap4BROkfHQqoXfTEkzYaWcjmPIw76dKAYiFM+MAMHA408F/TYiIgXFwOIx/qhoJIZlaFv0nQ+mHyfojiPIHKuN5CFked65/cZ1DMGWa2aCAZEJy+Ca7CqI9/uvZLug90kV7fotOae0s/FODUs1Gnvw4G1oE5BKlGKmLx/Hix0Eq9QxXqv1md+BbE+cL5F2RuJkKuGlj7kBV9OP80jyNjqLQTJHKImI72QfNK8yNrWqkaFEYAx0tVZ3P6TmAmN8UsYBHBRvQ/ZVmOCGd0TnHoDuoD0dve5qPCzfO+db/bnD2KeLi3aBDvkaip1iJjJ5A/T1MvLEKG3Pl17rjx9z5BmSmFPrIgcL0ElFuUSh0WqMbBwo53LNUUCfkn9WbcgwdfSmo4NEobbXxaQkQJ6yrgGeCdI=
+  - secure: UOrck9HyWXlGLfaXgEN4U8SAOAStgG5fpIXgVXvhkvRhPzYVc9nC9zq9mUD+J5nqB1wlIw9lVmh3+zWnCtoIScs0mpndvI/UvbmYd6o9qSbBSlp7oBk0Y7++rGn1T9ryy6sotmk/kMlB5WRItEa1accfEL44Lq/Ihtv7EJ1AJ7X2tmrfRjZZbR9AVwNw/ASLVY/7mAVk5p4ek7FsEK8tN59AfvC0UvT3S+M8yWqmCb9uRS820Vez2N+NgrJlv7H3TU9ISiNyOOQfBN8RwpY9XlFjpOiLnLZHt0h7SnP/2QSe/hQU1G7jBXy1cGK3D6x6DScQmQ95ar7HsqZXH71AcmtIVXXuCjTMiuI4Gsk6ZBEHHToPFDEw5mABQ9042ulVukb7p0BnXWhXHgSNS4Qhim6Zksgl0V7IhkhShN89rN0+fLpy7BXoU8fwd1NcoEPAIYMRwgN9EtTqdOZNlQAkNZ7QD6A8ekZ/ynXxV1V789PQh9/YG9xOUh+pGgouvOmYTGbfKhISHwhnHMBkPpJ1gxWrVjx4CYNzVlL8ghpKV+20zH0crY0PVQNYtVY4eSbrx+ym93903ItCojhZZQjD1Jd96CxyG2JYB34o0mOEg3oRAmbg9e1Mm1rFsOSSmJvDFaRUiG+v+SLK7U5/SoW+AzmGuCn28LJonFCIXFtEuwk=
