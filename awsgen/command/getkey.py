@@ -1,5 +1,3 @@
-import os
-import sys
 import logging
 
 from awsgen.models.request import Request
