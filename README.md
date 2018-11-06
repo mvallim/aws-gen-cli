@@ -33,7 +33,7 @@ $ sudo aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --a
 ```
 
 ##### Parameters:
-* __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __cocacola-ebc__ or __cocacola-mycoke__. This is important because it will link with your profile later.
+* __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __brand-project__ or __littleBanana-tree__. This is important because it will link with your profile later.
 * __`TRUSTROLEARN`__: Role you need to create with a Superadmin user allowing you do whatever you need. This role will give the properly permissions to run builds, create/update/delete cloudformation, create new services on AWS, etc.
 * __`AWS_ACCESS_KEY_ID`__: stands for the access key you will get once you create a user.
 * __`AWS_SECRET_ACCESS_KEY`__: stands for the secret key you will have once you create your user.
@@ -47,7 +47,7 @@ $ sudo aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --regi
 ##### Parameters:
 * __`AWS_REGION`__: stands for the region you mostly use on your account, where your infrastructure relies.
 * __`AWS_OUTPUT`__: We usually use JSON as output format, but there are other options you can explore.
-* __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@cocacola-ebc__ or __danielpn@cocacola-mycoke__.
+* __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
 ## Generating an authenticaded AWS console link
 
@@ -75,10 +75,10 @@ $ sudo apt-get install python python-pip -y
 $ sudo pip install awscli awsgen --upgrade --no-cache-dir
 ```
 ```
-$ sudo aws-gen configure --account cocacola-ebc --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
+$ sudo aws-gen configure --account brand-project --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
 ```
 ```
-$ sudo aws-gen create-profile --account cocacola-ebc --profile aboscatto@cocacola-ebc --region-name us-west-2 --output json
+$ sudo aws-gen create-profile --account brand-project --profile aboscatto@brand-project --region-name us-west-2 --output json
 ```
 
 ## Contributing
