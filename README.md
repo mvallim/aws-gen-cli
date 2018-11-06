@@ -5,35 +5,81 @@
 awsgen is the software that manage AWS Security Token Service (STS) and enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users that you authenticate (federated users).
 For more detailed information about using this service, go to [Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
 
-## Getting Started (under construction)
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites (under construction)
+### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing (under construction)
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+You will need to have python and pip installed on your machine.
 
 ```
-Give the example
+$ sudo apt-get install python python-pip -y
+```
+Right after having it installed you'll need to get aws-cli and aws-gen.
+
+```
+$ sudo pip install awscli awsgen --upgrade --no-cache-dir
 ```
 
-And repeat
+### Installing
+
+First you need to create an account with aws (please go to [Amazon Website](https://aws.amazon.com/))
+
+Go to the terminal and create a new AWS profile using the following command:
 
 ```
-until finished
+$ sudo aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --access-key-id AWS_ACCESS_KEY_ID --secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+##### Parameters:
+* __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __cocacola-ebc__ or __cocacola-mycoke__. This is important because it will link with your profile later.
+* __`TRUSTROLEARN`__: Role you need to create with a Superadmin user allowing you do whatever you need. This role will give the properly permissions to run builds, create/update/delete cloudformation, create new services on AWS, etc.
+* __`AWS_ACCESS_KEY_ID`__: stands for the access key you will get once you create a user.
+* __`AWS_SECRET_ACCESS_KEY`__: stands for the secret key you will have once you create your user.
+
+After configuring it, you need to create a profile:
+
+```
+$ sudo aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --region-name AWS_REGION --output AWS_OUTPUT
+```
+
+##### Parameters:
+* __`AWS_REGION`__: stands for the region you mostly use on your account, where your infrastructure relies.
+* __`AWS_OUTPUT`__: We usually use JSON as output format, but there are other options you can explore.
+* __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@cocacola-ebc__ or __danielpn@cocacola-mycoke__.
+
+## Generating an authenticaded AWS console link
+
+If you need to access the AWS using the `TRUSTROLEARN` role, please do the following:
+
+```
+aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
+```
+
+## Deploying with Serverless
+
+Doing the deploy with Serverless should be pretty simple and you need to use the --aws-profile parameter
+
+```
+sls deploy --aws-profile AWS_PROFILE
+```
+
+## Step-by-step example
+
+Here is an example of how it should look like during the installing:
+```
+$ sudo apt-get install python python-pip -y
+```
+```
+$ sudo pip install awscli awsgen --upgrade --no-cache-dir
+```
+```
+$ sudo aws-gen configure --account cocacola-ebc --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
+```
+```
+$ sudo aws-gen create-profile --account cocacola-ebc --profile aboscatto@cocacola-ebc --region-name us-west-2 --output json
+```
 
 ## Contributing
 
