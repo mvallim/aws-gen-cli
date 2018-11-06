@@ -1,30 +1,39 @@
 class Request(object):
 
     @property
-    def roleArn(self):
-        return self.__roleArn
+    def sourceProfile(self):
+        return self.__sourceProfile
 
     @property
-    def sessionName(self):
-        return self.__sessionName
+    def profile(self):
+        return self.__profile
 
     @property
-    def profileName(self):
-        return self.__profileName
+    def region(self):
+        return self.__region
 
-    @roleArn.setter
-    def roleArn(self, value):
-        self.__roleArn = value
+    @property
+    def output(self):
+        return self.__output        
 
-    @sessionName.setter
-    def sessionName(self, value):
-        self.__sessionName = value
+    @sourceProfile.setter
+    def sourceProfile(self, value):
+        self.__sourceProfile = value
 
-    @profileName.setter
-    def profileName(self, value):
-        self.__profileName = value
+    @profile.setter
+    def profile(self, value):
+        self.__profile = value
 
-    def __init__(self, roleArn = None, sessionName = None, profileName = None):
-        self.__roleArn = roleArn
-        self.__sessionName = sessionName
-        self.__profileName = profileName
+    @region.setter
+    def region(self, value):
+        self.__region = value
+
+    @output.setter
+    def output(self, value):
+        self.__output = value
+
+    def __init__(self, profile = None, sourceProfile = None, region = None, output = None):
+        self.__sourceProfile = sourceProfile
+        self.__profile = profile
+        self.__region = region
+        self.__output = output

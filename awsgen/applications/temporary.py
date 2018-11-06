@@ -1,19 +1,26 @@
+import os
 import sys
 import boto3
 import json
 import requests
 
+from configparser import ConfigParser
+
 from botocore.exceptions import ClientError
 
 from awsgen.models.credentials import Credentials
 
-class CredentialsApplication(object):
+from awsgen.applications.configuration import ConfigurationApp
+from awsgen.applications.account import AccountApp
 
-    def getCredentials(self, request):
-        boto3.setup_default_session(profile_name=request.profileName)
+class TemporaryApp(object):
+
+    def key(self, request):
+        account = AccountApp().get(request.sourceProfile)
+        boto3.setup_default_session(profile_name=request.sourceProfile)
         sts = boto3.client('sts')
         try:
-            response = sts.assume_role(RoleArn=request.roleArn, RoleSessionName=request.sessionName)
+            response = sts.assume_role(RoleArn=account.trustRoleArn, RoleSessionName=request.profile)
             credentials = Credentials(
                 secretAccessKey=response['Credentials']['SecretAccessKey'],
                 sessionToken=response['Credentials']['SessionToken'],
@@ -23,13 +30,15 @@ class CredentialsApplication(object):
         except ClientError:
             print('')
             print('\tThe request signature we calculated does not match the signature you provided.')
-            print('\tCheck your AWS Secret Access Key and signing method on profile [' + request.profileName + ']')
-            print('\tCheck your Arn role [' + request.roleArn + ']')
+            print('\tCheck your AWS Secret Access Key and signing method on profile [' + request.profile + ']')
+            print('\tCheck your Arn role [' + account.trustRoleArn + ']')
             print('')
             sys.exit(1)
 
 
-    def getConsoleLink(self, credentials):
+    def link(self, request):
+        credentials = self.key(request)
+
         session = json.dumps({
             'sessionId': credentials.accessKeyId,
             'sessionKey': credentials.secretAccessKey,
