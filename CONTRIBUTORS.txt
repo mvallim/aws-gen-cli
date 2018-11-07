@@ -1,3 +1,4 @@
 Marcos Vallim <tischer@gmail.com>
 André Boscatto <andreboscatto@gmail.com>
 Kalianne Rosa <>
+Daniel Nunes <>
