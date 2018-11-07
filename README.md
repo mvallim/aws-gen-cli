@@ -45,7 +45,11 @@ First you need to create an account with aws (please go to [Amazon Website](http
 Go to the terminal and create a new AWS profile using the following command:
 
 ```
-$ aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --access-key-id AWS_ACCESS_KEY_ID --secret-access-key AWS_SECRET_ACCESS_KEY
+$ aws-gen configure \
+            --account AWS_ACCOUNT \
+            --trust-role-arn TRUSTROLEARN \
+            --access-key-id AWS_ACCESS_KEY_ID \
+            --secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
 ##### Parameters:
@@ -57,7 +61,11 @@ $ aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --access
 After configuring it, you need to create a profile:
 
 ```
-$ aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --region-name AWS_REGION --output AWS_OUTPUT
+$ aws-gen create-profile \
+            --account AWS_ACCOUNT \
+            --profile AWS_PROFILE \
+            --region-name AWS_REGION \
+            --output AWS_OUTPUT
 ```
 
 ##### Parameters:
@@ -110,10 +118,18 @@ $ sudo apt-get install python python-pip -y
 $ sudo pip install awscli awsgen --upgrade --no-cache-dir
 ```
 ```
-$ aws-gen configure --account brand-project --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
+$ aws-gen configure \
+            --account brand-project \
+            --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole \
+            --access-key-id AK***************KQ \
+            --secret-access-key Y*********************0*******P*******S
 ```
 ```
-$ aws-gen create-profile --account brand-project --profile aboscatto@brand-project --region-name us-west-2 --output json
+$ aws-gen create-profile \
+            --account brand-project \
+            --profile aboscatto@brand-project \
+            --region-name us-west-2 \
+            --output json
 ```
 
 ## Contributing
