@@ -76,6 +76,13 @@ Doing the deploy with Serverless should be pretty simple and you need to use the
 ```
 sls deploy --aws-profile AWS_PROFILE
 ```
+## Using aws cli
+
+Doing the use with aws cli should be pretty simple and you need to use the --profile parameter
+
+```
+aws s3 ls --profile AWS_PROFILE
+```
 
 ## Step-by-step example
 
