@@ -126,7 +126,7 @@ We use [GitHub](https://github.com/mvallim/aws-gen-cli) for versioning. For the 
 
 ## Authors
 
-* **Marcos Vallim** - *Initial work* - [mvallim](https://github.com/mvallim)
+* **Marcos Vallim** - *Initial work, Test, Documentation* - [mvallim](https://github.com/mvallim)
 * **André Boscatto** - *Validation use, Test, Documentation* - [andreboscatto](https://github.com/andreboscatto)
 * **Kalianne Rosa** - *Validation use, Test* - [kaliannerosa](https://github.com/KalianneRosa)
 * **Daniel Nunes** - *Validation use, Test* - []()
