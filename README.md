@@ -51,11 +51,23 @@ $ sudo aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --regi
 
 ## Generating an authenticaded AWS console link
 
-If you need to access the AWS using the `TRUSTROLEARN` role, please do the following:
+If you need to access the AWS Console using the `TRUSTROLEARN` role, please do the following:
 
 ```
 aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
+
+## Generating temporary AWS Access key
+
+If you need to access the AWS using access key over the `TRUSTROLEARN` role, please do the following:
+
+```
+aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
+```
+##### Output:
+* __`AWS_ACCESS_KEY_ID`__: The access key ID that identifies the temporary security credentials.
+* __`AWS_SECRET_ACCESS_KEY`__: The secret access key that can be used to sign requests.
+* __`AWS_SESSION_TOKEN`__: The token that users must pass to the service API to use the temporary credentials.
 
 ## Deploying with Serverless
 
@@ -92,6 +104,7 @@ We use [GitHub](https://github.com/mvallim/aws-gen-cli) for versioning. For the 
 ## Authors
 
 * **Marcos Vallim** - *Initial work* - [mvallim](https://github.com/mvallim)
+* **André Boscatto** - *Initial work* - [andreboscatto](https://github.com/andreboscatto)
 
 See also the list of [contributors](https://github.com/mvallim/aws-gen-cli/blob/master/CONTRIBUTORS.txt) who participated in this project.
 
