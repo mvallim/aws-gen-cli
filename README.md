@@ -13,6 +13,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 You will need to have python and pip installed on your machine.
 
+#### On Linux (Debian/Ubuntu)
+
 ```
 $ sudo apt-get install python python-pip -y
 ```
@@ -22,6 +24,18 @@ Right after having it installed you'll need to get aws-cli and aws-gen.
 $ sudo pip install awscli awsgen --upgrade --no-cache-dir
 ```
 
+#### On Windows
+
+For install python go to [Python.org](https://www.python.org/downloads/windows/)
+
+```
+> pip install awscli awsgen --upgrade --no-cache-dir
+```
+
+#### On MacOS (under construction)
+
+Please add instructions here
+
 ### Installing
 
 First you need to create an account with aws (please go to [Amazon Website](https://aws.amazon.com/))
@@ -29,7 +43,7 @@ First you need to create an account with aws (please go to [Amazon Website](http
 Go to the terminal and create a new AWS profile using the following command:
 
 ```
-$ sudo aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --access-key-id AWS_ACCESS_KEY_ID --secret-access-key AWS_SECRET_ACCESS_KEY
+$ aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --access-key-id AWS_ACCESS_KEY_ID --secret-access-key AWS_SECRET_ACCESS_KEY
 ```
 
 ##### Parameters:
@@ -41,7 +55,7 @@ $ sudo aws-gen configure --account AWS_ACCOUNT --trust-role-arn TRUSTROLEARN --a
 After configuring it, you need to create a profile:
 
 ```
-$ sudo aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --region-name AWS_REGION --output AWS_OUTPUT
+$ aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --region-name AWS_REGION --output AWS_OUTPUT
 ```
 
 ##### Parameters:
@@ -54,7 +68,7 @@ $ sudo aws-gen create-profile --account AWS_ACCOUNT --profile AWS_PROFILE --regi
 If you need to access the AWS Console using the `TRUSTROLEARN` role, please do the following:
 
 ```
-aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
+$ aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
 
 ## Generating temporary AWS Access key
@@ -62,7 +76,7 @@ aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 If you need to access the AWS using access key over the `TRUSTROLEARN` role, please do the following:
 
 ```
-aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
+$ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
 ##### Output:
 * __`AWS_ACCESS_KEY_ID`__: The access key ID that identifies the temporary security credentials.
@@ -74,14 +88,14 @@ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 Doing the deploy with Serverless should be pretty simple and you need to use the --aws-profile parameter
 
 ```
-sls deploy --aws-profile AWS_PROFILE
+$ sls deploy --aws-profile AWS_PROFILE
 ```
 ## Using aws cli
 
 Doing the use with aws cli should be pretty simple and you need to use the --profile parameter
 
 ```
-aws s3 ls --profile AWS_PROFILE
+$ aws s3 ls --profile AWS_PROFILE
 ```
 
 ## Step-by-step example
@@ -94,10 +108,10 @@ $ sudo apt-get install python python-pip -y
 $ sudo pip install awscli awsgen --upgrade --no-cache-dir
 ```
 ```
-$ sudo aws-gen configure --account brand-project --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
+$ aws-gen configure --account brand-project --trust-role-arn arn:aws:iam::123456789123:role/AWSTrustUserRole --access-key-id AK***************KQ --secret-access-key Y*********************0*******P*******S
 ```
 ```
-$ sudo aws-gen create-profile --account brand-project --profile aboscatto@brand-project --region-name us-west-2 --output json
+$ aws-gen create-profile --account brand-project --profile aboscatto@brand-project --region-name us-west-2 --output json
 ```
 
 ## Contributing
