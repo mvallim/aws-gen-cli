@@ -120,4 +120,4 @@ This project is licensed under the BSD License - see the [LICENSE.md](LICENSE.md
 
 ## Code of Conduct
 
-Everyone interacting in the awsgen project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow the `PyPA Code of Conduct`_.
+Everyone interacting in the awsgen project's codebases, issue trackers, chat rooms, and mailing lists is expected to follow the `PyPA Code of Conduct`.
