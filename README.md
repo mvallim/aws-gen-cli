@@ -90,10 +90,35 @@ If you need to access the AWS using access key over the `TRUSTROLEARN` role, ple
 ```
 $ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
+
 ##### Output:
 * __`AWS_ACCESS_KEY_ID`__: The access key ID that identifies the temporary security credentials.
 * __`AWS_SECRET_ACCESS_KEY`__: The secret access key that can be used to sign requests.
 * __`AWS_SESSION_TOKEN`__: The token that users must pass to the service API to use the temporary credentials.
+
+## Setting active profile
+
+If you need active profile default, please do the following:
+
+```
+$ aws-gen set-active-profile --profile AWS_PROFILE
+```
+
+## Getting active profile
+
+If you need get active profile, please do the following:
+
+```
+$ aws-gen get-active-profile
+```
+
+## Listing profiles
+
+If you need list profiles, please do the following:
+
+```
+$ aws-gen list-profiles
+```
 
 ## Deploying with Serverless
 
