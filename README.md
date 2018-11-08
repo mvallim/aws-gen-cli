@@ -75,6 +75,7 @@ $ aws-gen create-profile \
 * __`AWS_OUTPUT`__: We usually use JSON as output format, but there are other options you can explore.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
+## Using
 
 ### Generating an authenticaded AWS console link
 
