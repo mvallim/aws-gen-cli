@@ -83,7 +83,7 @@ If you need to access the AWS Console using the `TRUSTROLEARN` role, please do t
 ```
 $ aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __brand-project__ or __littleBanana-tree__. This is important because it will link with your profile later.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
@@ -95,11 +95,11 @@ If you need to access the AWS using access key over the `TRUSTROLEARN` role, ple
 ```
 $ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __brand-project__ or __littleBanana-tree__. This is important because it will link with your profile later.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
-#### Output:
+##### Output:
 * __`AWS_ACCESS_KEY_ID`__: The access key ID that identifies the temporary security credentials.
 * __`AWS_SECRET_ACCESS_KEY`__: The secret access key that can be used to sign requests.
 * __`AWS_SESSION_TOKEN`__: The token that users must pass to the service API to use the temporary credentials.
@@ -112,7 +112,7 @@ If you need active profile default, please do the following:
 ```
 $ aws-gen set-active-profile --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
 ## Getting active profile
