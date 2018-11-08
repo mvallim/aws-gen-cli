@@ -9,7 +9,7 @@ def read(fname):
 
 setupOptions = dict(
     name='awsgen',
-    version='0.0.13',
+    version='0.0.14',
     install_requires=[
         'boto3>=1.9.35',
         'botocore>=1.12.16',
