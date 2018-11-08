@@ -8,6 +8,10 @@ class Account(object):
     def trustRoleArn(self):
         return self.__trustRoleArn
 
+    @property
+    def activeProfile(self):
+        return self.__activeProfile
+
     @name.setter
     def name(self, value):
         self.name = value
@@ -16,6 +20,11 @@ class Account(object):
     def trustRoleArn(self, value):
         self.__trustRoleArn = value
 
-    def __init__(self, name = None, trustRoleArn = None):
+    @activeProfile.setter
+    def activeProfile(self, value):
+        self.__activeProfile = value
+
+    def __init__(self, name = None, trustRoleArn = None, activeProfile = None):
         self.__name = name
         self.__trustRoleArn = trustRoleArn
+        self.__activeProfile = activeProfile

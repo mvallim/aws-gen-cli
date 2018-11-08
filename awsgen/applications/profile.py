@@ -4,25 +4,79 @@ from configparser import ConfigParser
 
 from awsgen.models.profile import Profile
 
+from awsgen.applications.account import AccountApp
+
 class ProfileApp(object):
 
     def save(self, profile):
         self.__writeProfile(profile)
 
 
+    def setActive(self, profile):
+        self.__writeActiveProfile(profile)
+
+
+    def getActive(self):
+        filename = os.path.expanduser('~/.aws/credentials')
+        dirname = os.path.dirname(filename)
+
+        if not os.path.exists(dirname):
+            print('File: [' + filename + '] not found')
+            return
+
+        config = ConfigParser()
+        config.read(filename)
+
+        if not config.has_section('default'):
+            print('Profile: [default] not found')
+            return
+
+        return config.get('default', 'active')
+
     def list(self):
         filename = os.path.expanduser('~/.aws/credentials')
         dirname = os.path.dirname(filename)
 
-        if os.path.exists(dirname):
-            config = ConfigParser()
-            config.read(filename)
+        if not os.path.exists(dirname):
+            print('File: [' + filename + '] not found')
+            return
 
-            sections = sorted(config.sections())
+        config = ConfigParser()
+        config.read(filename)
 
-            for section in sections:
-                print('[' + section + ']')
-                print('')
+        sections = sorted(config.sections())
+
+        for section in sections:
+            print('[' + section + ']')
+            print('')
+
+
+    def __writeActiveProfile(self, profile):
+        filename = os.path.expanduser('~/.aws/credentials')
+        dirname = os.path.dirname(filename)
+
+        if not os.path.exists(dirname):
+            print('File: [' + filename + '] not found')
+            return
+
+        config = ConfigParser()
+        config.read(filename)
+
+        if not config.has_section(profile):
+            print('Profile: [' + profile + '] not found')
+            return
+
+        config.remove_section('default')
+        config.add_section('default')
+
+        for value in config.items(profile):
+            config.set('default', value[0], value[1])
+
+        config.set('default', 'active', profile)
+
+        with open(filename, 'w') as fp:
+            config.write(fp)
+
 
     def __writeProfile(self, profile):
         filename = os.path.expanduser('~/.aws/credentials')
