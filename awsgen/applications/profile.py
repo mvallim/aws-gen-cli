@@ -10,6 +10,20 @@ class ProfileApp(object):
         self.__writeProfile(profile)
 
 
+    def list(self):
+        filename = os.path.expanduser('~/.aws/credentials')
+        dirname = os.path.dirname(filename)
+
+        if os.path.exists(dirname):
+            config = ConfigParser()
+            config.read(filename)
+
+            sections = sorted(config.sections())
+
+            for section in sections:
+                print('[' + section + ']')
+                print('')
+
     def __writeProfile(self, profile):
         filename = os.path.expanduser('~/.aws/credentials')
         dirname = os.path.dirname(filename)

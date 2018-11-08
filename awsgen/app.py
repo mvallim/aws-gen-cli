@@ -5,6 +5,7 @@ from awsgen.command.configure import Configure
 from awsgen.command.getlink import GetLink
 from awsgen.command.getkey import GetKey
 from awsgen.command.createprofile import CreateProfile
+from awsgen.command.listprofiles import ListProfiles
 
 class App(object):
 
@@ -18,6 +19,7 @@ class App(object):
         self.addCommand('get-link', GetLink)
         self.addCommand('get-key', GetKey)
         self.addCommand('create-profile', CreateProfile)
+        self.addCommand('list-profiles', ListProfiles)
 
         if len(args) < 1:
             self.parser.print_usage()
