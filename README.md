@@ -136,7 +136,7 @@ $ aws-gen create-profile \
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/mvallim/aws-gen-cli/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -149,7 +149,7 @@ We use [GitHub](https://github.com/mvallim/aws-gen-cli) for versioning. For the 
 * **Kalianne Rosa** - *Validation use, Test* - [kaliannerosa](https://github.com/KalianneRosa)
 * **Daniel Nunes** - *Validation use, Test* - [daspn](https://github.com/daspn)
 
-See also the list of [contributors](https://github.com/mvallim/aws-gen-cli/blob/master/CONTRIBUTORS.txt) who participated in this project.
+See also the list of [contributors](CONTRIBUTORS.txt) who participated in this project.
 
 ## License
 
