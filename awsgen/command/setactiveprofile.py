@@ -7,7 +7,7 @@ class SetActiveProfile(object):
     log = logging.getLogger(__name__)
 
     def __init__(self, parser=None):
-        parser.add_argument('--profile', metavar='profile', required=False, dest='profile')
+        parser.add_argument('--profile', metavar='profile', required=True, dest='profile')
 
         
     def action(self, args):
