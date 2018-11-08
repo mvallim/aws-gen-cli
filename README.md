@@ -40,7 +40,7 @@ Right after having it installed you'll need to get aws-cli and aws-gen.
 
 Please add instructions here
 
-### Installing
+## Installing
 
 First you need to create an account with aws (please go to [Amazon Website](https://aws.amazon.com/))
 
