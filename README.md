@@ -76,7 +76,7 @@ $ aws-gen create-profile \
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
 
-### Generating an authenticaded AWS console link
+## Generating an authenticaded AWS console link
 
 If you need to access the AWS Console using the `TRUSTROLEARN` role, please do the following:
 
@@ -88,7 +88,7 @@ $ aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
 
-### Generating temporary AWS Access key
+## Generating temporary AWS Access key
 
 If you need to access the AWS using access key over the `TRUSTROLEARN` role, please do the following:
 
@@ -105,7 +105,7 @@ $ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 * __`AWS_SESSION_TOKEN`__: The token that users must pass to the service API to use the temporary credentials.
 
 
-### Setting active profile
+## Setting active profile
 
 If you need active profile default, please do the following:
 
