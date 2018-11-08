@@ -28,6 +28,7 @@ setupOptions = dict(
     license = "BSD",
     description = 'Manage AWS Security Token Service (STS)',
     long_description=read('README.md'),
+    long_description_content_type='text/markdown',
     url = 'https://github.com/mvallim/aws-gen-cli',
     author='Marcos Vallim',
     author_email='tischer@gmail.com'
