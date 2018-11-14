@@ -10,7 +10,6 @@ from botocore.exceptions import ClientError
 
 from awsgen.models.credentials import Credentials
 
-from awsgen.applications.configuration import ConfigurationApp
 from awsgen.applications.account import AccountApp
 
 class TemporaryApp(object):

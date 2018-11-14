@@ -1,6 +1,7 @@
 import logging
 
 from awsgen.applications.profile import ProfileApp
+from awsgen.applications.configuration import ConfigurationApp
 
 class SetActiveProfile(object):
 
@@ -12,3 +13,4 @@ class SetActiveProfile(object):
         
     def action(self, args):
         ProfileApp().setActive(args.profile)
+        ConfigurationApp().setActive(args.profile)

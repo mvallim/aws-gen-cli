@@ -2,10 +2,6 @@ import os
 
 from configparser import ConfigParser
 
-from awsgen.models.profile import Profile
-
-from awsgen.applications.account import AccountApp
-
 class ProfileApp(object):
 
     def save(self, profile):

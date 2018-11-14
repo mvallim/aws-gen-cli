@@ -2,8 +2,6 @@ import os
 
 from configparser import ConfigParser
 
-from awsgen.models.profile import Profile
-
 class ConfigurationApp(object):
 
     def save(self, configuration):
@@ -12,6 +10,37 @@ class ConfigurationApp(object):
 
     def update(self, configuration):
         self.__updateConfiguration(configuration)
+
+
+    def setActive(self, profile):
+        self.__writeActiveConfiguration(profile)
+
+
+    def __writeActiveConfiguration(self, profile):
+        filename = os.path.expanduser('~/.aws/config')
+        dirname = os.path.dirname(filename)
+
+        if not os.path.exists(dirname):
+            print('File: [' + filename + '] not found')
+            return None
+
+        config = ConfigParser()
+        config.read(filename)
+
+        if not config.has_section('profile ' + profile):
+            print('Profile: [' + profile + '] not found')
+            return None
+
+        config.remove_section('default')
+        config.add_section('default')
+
+        profile = 'profile ' + profile
+        
+        for value in config.items(profile):
+            config.set('default', value[0], value[1])
+
+        with open(filename, 'w') as fp:
+            config.write(fp)
 
 
     def __writeConfiguration(self, configuration):
