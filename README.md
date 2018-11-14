@@ -40,7 +40,7 @@ Right after having it installed you'll need to get aws-cli and aws-gen.
 
 Please add instructions here
 
-### Installing
+## Installing
 
 First you need to create an account with aws (please go to [Amazon Website](https://aws.amazon.com/))
 
@@ -75,6 +75,7 @@ $ aws-gen create-profile \
 * __`AWS_OUTPUT`__: We usually use JSON as output format, but there are other options you can explore.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
+## Using
 
 ### Generating an authenticaded AWS console link
 
@@ -83,7 +84,7 @@ If you need to access the AWS Console using the `TRUSTROLEARN` role, please do t
 ```
 $ aws-gen get-link --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __brand-project__ or __littleBanana-tree__. This is important because it will link with your profile later.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
@@ -95,11 +96,11 @@ If you need to access the AWS using access key over the `TRUSTROLEARN` role, ple
 ```
 $ aws-gen get-key --account AWS_ACCOUNT --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_ACCOUNT`__: stands for the main name of your project or brand, i.e. __brand-project__ or __littleBanana-tree__. This is important because it will link with your profile later.
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
-#### Output:
+##### Output:
 * __`AWS_ACCESS_KEY_ID`__: The access key ID that identifies the temporary security credentials.
 * __`AWS_SECRET_ACCESS_KEY`__: The secret access key that can be used to sign requests.
 * __`AWS_SESSION_TOKEN`__: The token that users must pass to the service API to use the temporary credentials.
@@ -112,10 +113,10 @@ If you need active profile default, please do the following:
 ```
 $ aws-gen set-active-profile --profile AWS_PROFILE
 ```
-#### Parameters:
+##### Parameters:
 * __`AWS_PROFILE`__: stands for the profile name you want to use. It is important to keep the things organized, so we would recomend to name it follwing the standard __username__@`AWS_ACCOUNT`, i.e. __aboscatto@brand-project__ or __danielpn@littleBanana-tree__.
 
-## Getting active profile
+### Getting active profile
 
 If you need get active profile, please do the following:
 
@@ -123,7 +124,7 @@ If you need get active profile, please do the following:
 $ aws-gen get-active-profile
 ```
 
-## Listing profiles
+### Listing profiles
 
 If you need list profiles, please do the following:
 
@@ -131,14 +132,14 @@ If you need list profiles, please do the following:
 $ aws-gen list-profiles
 ```
 
-## Deploying with Serverless
+### Deploying with Serverless
 
 Doing the deploy with Serverless should be pretty simple and you need to use the --aws-profile parameter
 
 ```
 $ sls deploy --aws-profile AWS_PROFILE
 ```
-## Using aws cli
+### Using aws cli
 
 Doing the use with aws cli should be pretty simple and you need to use the --profile parameter
 
@@ -146,7 +147,7 @@ Doing the use with aws cli should be pretty simple and you need to use the --pro
 $ aws s3 ls --profile AWS_PROFILE
 ```
 
-## Step-by-step example
+### Step-by-step example
 
 Here is an example of how it should look like during the installing:
 ```
