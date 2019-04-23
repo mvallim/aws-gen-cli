@@ -1,0 +1,746 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Deploy AWS Security Accounts",
+    "Parameters": {},
+    "Mappings": {},
+    "Resources": {
+        "AWSGroupAdministrators": {
+            "Type": "AWS::IAM::Group",
+            "Properties": {
+                "GroupName": "Administrators",
+                "Path": "/"
+            }
+        },
+        "AWSGroupDevelopers": {
+            "Type": "AWS::IAM::Group",
+            "Properties": {
+                "GroupName": "Developers",
+                "Path": "/"
+            }
+        },
+        "AWSGroupServices": {
+            "Type": "AWS::IAM::Group",
+            "Properties": {
+                "GroupName": "Services",
+                "Path": "/"
+            }
+        },
+        "AWSTrustUser": {
+            "Type": "AWS::IAM::User",
+            "Properties": {
+                "Path": "/",
+                "UserName": "trustuser"
+            }
+        },
+        "AWSCloudFormationPassRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "AWSCloudFormationPassRole",
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "cloudformation.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "AWSTrustUserRole": {
+            "Type": "AWS::IAM::Role",
+            "DependsOn": [
+                "AWSTrustUser"
+            ],
+            "Properties": {
+                "RoleName": "AWSTrustUserRole",
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "AWS": {
+                                    "Fn::GetAtt": [
+                                        "AWSTrustUser",
+                                        "Arn"
+                                    ]
+                                }
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "AWSAllowAdministratorsPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupAdministrators"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "iam:GenerateCredentialReport",
+                                "iam:GenerateServiceLastAccessedDetails",
+                                "iam:Get*",
+                                "iam:List*",
+                                "iam:SimulateCustomPolicy",
+                                "iam:SimulatePrincipalPolicy",
+                                "iam:GetAccountPasswordPolicy"
+                            ],
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "iam:ChangePassword",
+                                "iam:*MFA*"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::*:user/${aws:username}",
+                                "arn:aws:iam::*:mfa/${aws:username}"
+                            ],
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": "*",
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "true"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupAdministrators"
+                    }
+                ]
+            }
+        },
+        "AWSAllowDevelopersPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupDevelopers"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "iam:GenerateCredentialReport",
+                                "iam:GenerateServiceLastAccessedDetails",
+                                "iam:Get*",
+                                "iam:List*",
+                                "iam:SimulateCustomPolicy",
+                                "iam:SimulatePrincipalPolicy",
+                                "iam:GetAccountPasswordPolicy"
+                            ],
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "iam:ChangePassword",
+                                "iam:*MFA*"
+                            ],
+                            "Resource": [
+                                "arn:aws:iam::*:user/${aws:username}",
+                                "arn:aws:iam::*:mfa/${aws:username}"
+                            ],
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Allow",
+                            "Action": "*",
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "true"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupDevelopers"
+                    }
+                ]
+            }
+        },
+        "AWSAllowServicesPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupServices"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "*",
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupServices"
+                    }
+                ]
+            }
+        },
+        "AWSAllowTrustUserPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSTrustUser",
+                "AWSTrustUserRole"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Effect": "Allow",
+                            "Resource": [
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSTrustUserRole",
+                                        "Arn"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "Users": [
+                    {
+                        "Ref": "AWSTrustUser"
+                    }
+                ]
+            }
+        },
+        "AWSAllowTrustUserRolePolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSTrustUserRole"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "*",
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "AWSTrustUserRole"
+                    }
+                ]
+            }
+        },
+        "AWSAllowCloudFormationPassRolePolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "*",
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "AWSCloudFormationPassRole"
+                    }
+                ]
+            }
+        },
+        "AWSDenyAdministratorsPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupAdministrators",
+                "AWSGroupDevelopers",
+                "AWSGroupServices"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateUser",
+                                "iam:DeleteUser",
+                                "iam:UpdateUser",
+                                "iam:CreateLoginProfile",
+                                "iam:DeleteLoginProfile",
+                                "iam:UpdateLoginProfile",
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup",
+                                "iam:RemoveUserFromGroup"
+                            ],
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup"
+                            ],
+                            "NotResource": [
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupAdministrators",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupDevelopers",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupServices",
+                                        "Arn"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateGroup",
+                                "iam:DeleteGroup",
+                                "iam:UpdateGroup",
+                                "iam:CreateAccountAlias",
+                                "iam:DeleteAccountAlias",
+                                "iam:DeleteUserPolicy",
+                                "iam:DeleteAccountPasswordPolicy",
+                                "iam:DeleteGroupPolicy",
+                                "iam:DetachGroupPolicy"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupAdministrators"
+                    }
+                ]
+            }
+        },
+        "AWSDenyDevelopersPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupDevelopers",
+                "AWSGroupServices"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateUser",
+                                "iam:DeleteUser",
+                                "iam:UpdateUser",
+                                "iam:CreateLoginProfile",
+                                "iam:DeleteLoginProfile",
+                                "iam:UpdateLoginProfile",
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup",
+                                "iam:RemoveUserFromGroup"
+                            ],
+                            "Resource": "*",
+                            "Condition": {
+                                "BoolIfExists": {
+                                    "aws:MultiFactorAuthPresent": "false"
+                                }
+                            }
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup"
+                            ],
+                            "NotResource": [
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupDevelopers",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupServices",
+                                        "Arn"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:ChangePassword",
+                                "iam:*MFA*",
+                                "iam:CreateLoginProfile",
+                                "iam:DeleteLoginProfile",
+                                "iam:UpdateLoginProfile",
+                                "iam:AttachUserPolicy",
+                                "iam:DeleteUserPolicy",
+                                "iam:DetachUserPolicy"
+                            ],
+                            "NotResource": [
+                                "arn:aws:iam::*:user/${aws:username}",
+                                "arn:aws:iam::*:mfa/",
+                                "arn:aws:iam::*:mfa/${aws:username}"
+                            ]
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateAccessKey",
+                                "iam:CreateGroup",
+                                "iam:DeleteAccessKey",
+                                "iam:DeleteGroup",
+                                "iam:UpdateAccessKey",
+                                "iam:UpdateGroup",
+                                "iam:CreateAccountAlias",
+                                "iam:DeleteAccountAlias",
+                                "iam:DeleteUserPolicy",
+                                "iam:DeleteAccountPasswordPolicy",
+                                "iam:DeleteGroupPolicy",
+                                "iam:DetachGroupPolicy"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupDevelopers"
+                    }
+                ]
+            }
+        },
+        "AWSDenyServicesPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupServices"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateAccessKey",
+                                "iam:CreateGroup",
+                                "iam:CreateUser",
+                                "iam:DeleteAccessKey",
+                                "iam:DeleteGroup",
+                                "iam:DeleteUser",
+                                "iam:UpdateAccessKey",
+                                "iam:UpdateGroup",
+                                "iam:UpdateUser",
+                                "iam:CreateLoginProfile",
+                                "iam:DeleteLoginProfile",
+                                "iam:CreateAccountAlias",
+                                "iam:DeleteAccountAlias",
+                                "iam:AttachUserPolicy",
+                                "iam:DeleteUserPolicy",
+                                "iam:DetachUserPolicy",
+                                "iam:DeleteAccountPasswordPolicy",
+                                "iam:DeleteGroupPolicy",
+                                "iam:DetachGroupPolicy",
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup",
+                                "iam:ChangePassword",
+                                "iam:*MFA*"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                },
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupServices"
+                    }
+                ]
+            }
+        },
+        "AWSDenyTrustUserRolePolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSTrustUserRole",
+                "AWSGroupDevelopers",
+                "AWSGroupServices"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:CreateAccessKey",
+                                "iam:CreateGroup",
+                                "iam:DeleteAccessKey",
+                                "iam:DeleteGroup",
+                                "iam:UpdateAccessKey",
+                                "iam:UpdateGroup",
+                                "iam:ChangePassword",
+                                "iam:CreateAccountAlias",
+                                "iam:DeleteAccountAlias",
+                                "iam:AttachUserPolicy",
+                                "iam:DeleteUserPolicy",
+                                "iam:DeleteAccountPasswordPolicy",
+                                "iam:DeleteGroupPolicy",
+                                "iam:DetachGroupPolicy",
+                                "iam:CreateVirtualMFADevice",
+                                "iam:DeactivateMFADevice",
+                                "iam:DeleteVirtualMFADevice",
+                                "iam:EnableMFADevice",
+                                "iam:ResyncMFADevice"
+                            ],
+                            "Resource": "*"
+                        },
+                        {
+                            "Effect": "Deny",
+                            "Action": [
+                                "iam:RemoveUserFromGroup",
+                                "iam:AddUserToGroup"
+                            ],
+                            "NotResource": [
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupDevelopers",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSGroupServices",
+                                        "Arn"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "AWSTrustUserRole"
+                    }
+                ]
+            }
+        },
+        "AWSDenyAccessPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "DependsOn": [
+                "AWSGroupAdministrators",
+                "AWSGroupDevelopers",
+                "AWSGroupServices",
+                "AWSDenyAdministratorsPolicy",
+                "AWSDenyDevelopersPolicy",
+                "AWSDenyServicesPolicy",
+                "AWSDenyTrustUserRolePolicy",
+                "AWSAllowAdministratorsPolicy",
+                "AWSAllowDevelopersPolicy",
+                "AWSAllowServicesPolicy",
+                "AWSAllowTrustUserRolePolicy",
+                "AWSAllowCloudFormationPassRolePolicy",
+                "AWSTrustUserRole",
+                "AWSTrustUser"
+            ],
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Deny",
+                            "Action": "*",
+                            "Resource": [
+                                {
+                                    "Ref": "AWS::StackId"
+                                },
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "arn:aws:iam::",
+                                            {
+                                                "Ref": "AWS::AccountId"
+                                            },
+                                            ":policy/",
+                                            {
+                                                "Ref": "AWS::StackName"
+                                            },
+                                            "-AWSDenyAccessPolicy*"
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "Ref": "AWSDenyAdministratorsPolicy"
+                                },
+                                {
+                                    "Ref": "AWSDenyDevelopersPolicy"
+                                },
+                                {
+                                    "Ref": "AWSDenyServicesPolicy"
+                                },
+                                {
+                                    "Ref": "AWSDenyTrustUserRolePolicy"
+                                },
+                                {
+                                    "Ref": "AWSAllowAdministratorsPolicy"
+                                },
+                                {
+                                    "Ref": "AWSAllowDevelopersPolicy"
+                                },
+                                {
+                                    "Ref": "AWSAllowServicesPolicy"
+                                },
+                                {
+                                    "Ref": "AWSAllowTrustUserRolePolicy"
+                                },
+                                {
+                                    "Ref": "AWSAllowCloudFormationPassRolePolicy"
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSTrustUserRole",
+                                        "Arn"
+                                    ]
+                                },
+                                {
+                                    "Fn::GetAtt": [
+                                        "AWSTrustUser",
+                                        "Arn"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "Roles": [
+                    {
+                        "Ref": "AWSTrustUserRole"
+                    },
+                    {
+                        "Ref": "AWSCloudFormationPassRole"
+                    }
+                ],
+                "Groups": [
+                    {
+                        "Ref": "AWSGroupAdministrators"
+                    },
+                    {
+                        "Ref": "AWSGroupDevelopers"
+                    },
+                    {
+                        "Ref": "AWSGroupServices"
+                    }
+                ]
+            }
+        },
+        "AWSTrustUserAccessKey": {
+            "Type": "AWS::IAM::AccessKey",
+            "Properties": {
+                "UserName": {
+                    "Ref": "AWSTrustUser"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "CloudFormationPassRoleArn": {
+            "Description": "Access Role Arn to full access via CloudFormation access",
+            "Value": {
+                "Fn::GetAtt": [
+                    "AWSCloudFormationPassRole",
+                    "Arn"
+                ]
+            }
+        },
+        "TrustUserRoleArn": {
+            "Description": "Access Role Arn to temporary user access",
+            "Value": {
+                "Fn::GetAtt": [
+                    "AWSTrustUserRole",
+                    "Arn"
+                ]
+            }
+        },
+        "TrustUserAccessKeyId": {
+            "Description": "Access key ID to temporary user access",
+            "Value": {
+                "Ref": "AWSTrustUserAccessKey"
+            }
+        },
+        "TrustUserAccessKeySecret": {
+            "Description": "Secret access key to temporary user access",
+            "Value": {
+                "Fn::GetAtt": [
+                    "AWSTrustUserAccessKey",
+                    "SecretAccessKey"
+                ]
+            }
+        }
+    }
+}
