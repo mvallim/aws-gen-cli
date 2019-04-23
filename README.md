@@ -6,7 +6,7 @@
 
 
 awsgen is the software that manage AWS Security Token Service (STS) and enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or for users that you authenticate (federated users).
-For more detailed information about using this service, go to [Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
+For more detailed information about using this service, go to [Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) or take a look in [cf-security-credentials.json](cf-security-credentials.json)
 
 ![Schema](schema.png)
 
