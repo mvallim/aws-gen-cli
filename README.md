@@ -31,7 +31,7 @@ $ sudo pip install awscli awsgen --upgrade --no-cache-dir
 
 #### On Windows
 
-For install python go to [Python.org](https://www.python.org/downloads/windows/)
+To install python go to [Python.org](https://www.python.org/downloads/windows/)
 
 Right after having it installed you'll need to get aws-cli and aws-gen.
 
